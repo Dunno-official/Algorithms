@@ -8,7 +8,7 @@ int Evaluate(int& k, vector<int>& canisters);
 
 
 int main()
-{	
+{
 	int n;
 	int k;
 	vector<int> canisters;
@@ -44,31 +44,27 @@ void Input(int& n, int& k, vector<int>& canisters)
 
 	for (int i = 0; i < n; ++i)
 	{
-		//cin >> canisters[i];
-		canisters[i] = rand() % k;
+		cin >> canisters[i];
 	}
 }
 
 
 int Evaluate(int& k, vector<int>& canisters)
 {
+	int bigger = canisters.size() - 1;
+	int lesser = 0;
 	int answer = 0;
 
-	sort(canisters.rbegin(), canisters.rend());
+	sort(canisters.begin(), canisters.end());
 
-	for (size_t i = 0; i < canisters.size(); ++i)
+	while (bigger >= lesser)
 	{
-		for (int j = canisters.size() - 1; j > canisters.size() / 2; --j)
+		if (canisters[bigger] + canisters[lesser] <= k)
 		{
-			if (i == canisters.size() - 1)
-				j = canisters.size() - 2;
-
-			if (canisters[i] + canisters[j] <= k)
-			{
-				canisters.erase(canisters.begin() + j);
-				break;
-			}
+			++lesser;
 		}
+
+		--bigger;
 
 		++answer;
 	}
